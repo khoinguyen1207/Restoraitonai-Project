@@ -1,11 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
 html {
     line-height: 1.5;
     height: 100%;
+    box-sizing: border-box;
 }
 body {
     font-family:
@@ -27,9 +27,9 @@ body {
     font-size: 16;
     margin: 0px;
     padding: 0px;
+    height: 100%;
 }
 a {
-    color: white;
     text-decoration: none;
 }
 .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {

@@ -1,17 +1,35 @@
+import { useContext } from 'react'
 import logo from 'src/assets/logo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from 'src/constants/routes'
 import { Space, Button, Select, Popover } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import { AppContext } from 'src/contexts/app.context'
+import { useMutation } from '@tanstack/react-query'
+import authApi from 'src/apis/auth.api'
 
 export default function Header() {
     const navigate = useNavigate()
+    const { profile, setProfile, setIsAuthenticated } = useContext(AppContext)
+
+    const logoutMutation = useMutation({
+        mutationFn: authApi.logout,
+        onSuccess() {
+            setIsAuthenticated(false)
+            setProfile(null)
+        }
+    })
+
+    const handleLogout = () => {
+        logoutMutation.mutate()
+    }
+
     return (
-        <div className='px-4 py-3 bg-lightNavy'>
+        <div className='px-4 py-4 bg-lightNavy'>
             <div className='flex items-center justify-between'>
-                <Space direction='horizontal' size={30}>
+                <Space direction='horizontal' size={30} align='center'>
                     <Link to={ROUTES.HOME} className='flex items-center'>
-                        <img src={logo} alt='logo' className='w-[145px] h-10' />
+                        <img src={logo} alt='logo' className='w-32 h-full' />
                     </Link>
                     <Link to={ROUTES.DASHBOARD} className=' font-medium hover:text-[#136aa0] text-white'>
                         Dashboard
@@ -59,18 +77,21 @@ export default function Header() {
                                     >
                                         Company profile
                                     </Link>
-                                    <Link
-                                        to={ROUTES.ACCOUNT}
-                                        className='text-black font-semibold text-base hover:bg-gray-100 block py-1 px-2'
+                                    <div
+                                        onClick={handleLogout}
+                                        className='text-black cursor-pointer font-semibold text-base hover:bg-gray-100 hover:text-primary block py-1 px-2'
+                                        aria-hidden
                                     >
                                         Logout
-                                    </Link>
+                                    </div>
                                 </div>
                             }
                             trigger='click'
                             arrow={false}
                         >
-                            <span className='text-white font-medium cursor-pointer'>Nguyen</span>
+                            <span className='text-white font-medium cursor-pointer'>
+                                {profile?.last_name || 'ghest'}
+                            </span>
                         </Popover>
                     </Space>
                 </Space>

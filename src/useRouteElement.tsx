@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { Outlet, Navigate, useRoutes } from 'react-router-dom'
 import { ROUTES } from './constants/routes'
 import MainLayout from './layout/MainLayout'
@@ -7,19 +8,22 @@ import Forgot from './pages/Forgot'
 import Dashboard from './pages/Dashboard'
 import UserItemsManager from './pages/UserItemsManager'
 import CreateWasteReport from './pages/WasteReport/pages/CreateWasteReport'
-import WasteReportLayout from './pages/WasteReport/layouts/WasteReportLayout'
+import WasteReportLayout from './layout/WasteReportLayout'
 import AccountLayout from './layout/AccountLayout'
+import { AppContext } from './contexts/app.context'
 
-const isAuthenticated = true
 const ProtectedRoute = () => {
+    const { isAuthenticated } = useContext(AppContext)
     return isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.LOGIN} />
 }
 
 const RejectedRoute = () => {
+    const { isAuthenticated } = useContext(AppContext)
     return !isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.DASHBOARD} />
 }
 
 export default function useRouteElement() {
+    const { isAuthenticated } = useContext(AppContext)
     const element = useRoutes([
         {
             path: ROUTES.HOME,
@@ -60,7 +64,7 @@ export default function useRouteElement() {
                     )
                 },
                 {
-                    path: ROUTES.EDIT_WASTE_REPORT,
+                    path: `${ROUTES.EDIT_WASTE_REPORT}/:id`,
                     element: (
                         <MainLayout>
                             <WasteReportLayout />

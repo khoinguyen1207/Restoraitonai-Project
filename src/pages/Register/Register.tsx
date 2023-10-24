@@ -106,7 +106,6 @@ export default function Register() {
                                 maxLength={10}
                                 stringMode
                             />
-                            {/* <Input size='large' placeholder='Email or Username' /> */}
                         </Form.Item>
                         <Form.Item
                             name='question'

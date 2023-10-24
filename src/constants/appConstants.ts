@@ -1,7 +1,7 @@
 export const COLORS = {
     PRIMARY: '#1B97E4',
-    PRIMARY_HOVER: '#1780c2',
-    LIGHT_NAVY: '#19467E',
+    WATER_BLUE: '#1780c2',
+    SECONDARY: '#19467E',
     GRAY: '#d9d9d9',
     LIGHT_GRAY: '#F9F9F9',
     ACTIVE_SHADOW: '0 0 0 0.2rem rgba(58,211,205,.25)',
@@ -9,6 +9,12 @@ export const COLORS = {
     WHITE: '#ffffff',
     PALE_GRAY: '#E6E8EB'
 } as const
+
+export const API_URL = 'https://react-api.restorationai.com/api'
+export const NUM_MIN = 0
+export const NUM_MAX = 999999
+export const FONT_FAMILY = `Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`
+export const FILE_MAX_SIZE = 4194304 //4MB
 
 export const SHINGLES_TYPES = [
     { value: '', label: 'Select shingle type' },
@@ -34,9 +40,6 @@ export const ROOF_TYPES = [
     { value: 1, label: 'Hip' },
     { value: 2, label: 'Gable' }
 ]
-export const NUM_MIN = 0
-export const NUM_MAX = 999999
-export const FONT_FAMILY = `Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`
 
 export const REFERRAL_TYPES = [
     {
