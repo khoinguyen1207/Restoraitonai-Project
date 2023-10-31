@@ -1,8 +1,13 @@
-import { useMemo, useContext } from 'react'
-import { AppContext } from 'src/contexts/app.context'
+import { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
+import { GetCompanyList, GetWasteReportById } from 'src/services/project.service'
 
 export default function BoxDetailWasteReport() {
-    const { wasteReport: wasteReportDetail, companyList } = useContext(AppContext)
+    const { id } = useParams()
+    const wasteReportQuery = GetWasteReportById(id as string)
+    const wasteReportDetail = wasteReportQuery.data?.data.data
+    const companyQuery = GetCompanyList()
+    const companyList = companyQuery.data?.data.data
 
     const company = useMemo(() => {
         return companyList?.find((company) => company.id === wasteReportDetail?.company_id)

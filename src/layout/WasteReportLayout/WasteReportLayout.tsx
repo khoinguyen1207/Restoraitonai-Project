@@ -6,7 +6,7 @@ import WasteReportDetail from '../../pages/WasteReport/pages/WasteReportDetail'
 import Supplement from 'src/pages/Supplement'
 import Documents from 'src/pages/Documents'
 import Loading from 'src/components/Loading'
-import { GetCompanyList, GetWasteReportById } from 'src/services/project.service'
+import { GetWasteReportById } from 'src/services/project.service'
 import { SaveFilled } from '@ant-design/icons'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useParams } from 'react-router-dom'
@@ -15,11 +15,9 @@ export default function WasteReportLayout() {
     const { tabName } = useQueryParams()
     const [tab, setTab] = useState(tabName || 'waste-report')
     const { id } = useParams()
-
-    GetWasteReportById(id as string)
-    const getCompany = GetCompanyList()
-
     const btnRef = useRef<HTMLButtonElement>(null)
+
+    const wasteReportQuery = GetWasteReportById(id as string)
 
     const handleOnClick = () => {
         btnRef.current?.click()
@@ -28,7 +26,7 @@ export default function WasteReportLayout() {
     return (
         <div>
             <Layout>
-                <Loading isVisible={getCompany.isFetching} />
+                <Loading isVisible={wasteReportQuery.isLoading} />
                 <SideNavWasteReport setTab={setTab} tab={tab} />
                 <Content className='p-4 pb-10 pl-0 text-base bg-[#E6E8EB] min-h-screen'>
                     {tab === 'waste-report' && <WasteReportDetail btnRef={btnRef} />}

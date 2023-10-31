@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useContext } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Button, Divider, Form, Input, InputNumber, Select } from 'antd'
 import SubHeader from '../../components/SubHeader'
 import {
@@ -10,21 +10,22 @@ import {
     VALLEYS_TYPES
 } from 'src/constants/appConstants'
 import { validateMessages } from 'src/utils/rule'
-import { GetWasteReportById, UpdateWasteReport } from 'src/services/project.service'
+import { GetCompanyList, GetWasteReportById, UpdateWasteReport } from 'src/services/project.service'
 import { WasteReportForm } from 'src/types/project.type'
 import { toast } from 'react-toastify'
 import Loading from 'src/components/Loading'
 import { isNotFoundError } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
-import { AppContext } from 'src/contexts/app.context'
 import { useParams } from 'react-router-dom'
 
 export default function WasteReportDetail({ btnRef }: { btnRef: React.RefObject<HTMLButtonElement> }) {
     const [form] = Form.useForm<WasteReportForm>()
     const { id } = useParams()
-    const { wasteReport: wasteReportDetail, companyList } = useContext(AppContext)
     const updateWasteReport = UpdateWasteReport()
     const wasteReportQuery = GetWasteReportById(id as string)
+    const wasteReportDetail = wasteReportQuery.data?.data.data
+    const companyQuery = GetCompanyList()
+    const companyList = companyQuery.data?.data.data
 
     useEffect(() => {
         if (wasteReportDetail) {

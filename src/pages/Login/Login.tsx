@@ -6,7 +6,7 @@ import { ROUTES } from 'src/constants/routes'
 import { useMutation } from '@tanstack/react-query'
 import authApi from 'src/apis/auth.api'
 import { AppContext } from 'src/contexts/app.context'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { isNotFoundError } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 

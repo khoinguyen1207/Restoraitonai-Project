@@ -1,12 +1,12 @@
-import { useContext } from 'react'
 import { DownloadOutlined, MailOutlined } from '@ant-design/icons'
 import { Button, Popover, Space } from 'antd'
-import { Link } from 'react-router-dom'
-import { AppContext } from 'src/contexts/app.context'
+import { Link, useParams } from 'react-router-dom'
+import { GetWasteReportById } from 'src/services/project.service'
 
 export default function SubHeader() {
-    const { wasteReport } = useContext(AppContext)
-    const wasteReportDetail = wasteReport
+    const { id } = useParams()
+    const wasteReportQuery = GetWasteReportById(id as string)
+    const wasteReportDetail = wasteReportQuery.data?.data.data
 
     return (
         <div className='sticky top-0 z-10 shadow-subHeader rounded-sm bg-white px-8 py-3'>
